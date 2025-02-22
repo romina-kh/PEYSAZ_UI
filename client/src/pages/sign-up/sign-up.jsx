@@ -1,22 +1,45 @@
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup' // validation
+import {useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
+
+    const navigate = useNavigate();
 
     const schema = yup.object().shape({
         First_name: yup.string().required(),
         Last_name: yup.string().required(),
-        Phone_number:yup.number().notRequired()
+        Phone_number:yup.number().required(),
+        ID: yup.string().required(),
+        Wallet_balance: yup.string().required()
     });
     // register :link  
     // resolver link yup to form -- yup check validation
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(schema)}); 
-    const onSubmit = (data) => {
-        console.log(data)
+    
+    const onSubmit = async (data) => {
+        try {
+            const res = await fetch("http://localhost:5000/costumers", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await res.json();
+
+            if (res.ok){
+                navigate("/");
+            } else {
+                console.error(result.message)
+            }
+        } catch (error) {
+            console.log('Error:', error);
+        }
     }
 //========
-//we open {} because it is fucking js
+//we open {} because it is js
     return(
         <div className='sign-up'>
             <form className='sign-up-form' onSubmit={handleSubmit(onSubmit)}>
@@ -30,6 +53,13 @@ const SignUp = () => {
                 <h2>Phone number:</h2>
                 <input placeholder='09123456789' type='text'{...register("Phone_number")}/>
                 <p className='error'>{errors.Phone_number?.message}</p> 
+                <h2>ID:</h2>
+                <input placeholder='09123456789' type='text'{...register("ID")}/>
+                <p className='error'>{errors.Phone_number?.message}</p> 
+                <h2>Balance:</h2>
+                <input placeholder='09123456789' type='text'{...register("Wallet_balance")}/>
+                <p className='error'>{errors.Phone_number?.message}</p> 
+                
                 <button type='submit'>Sign Up</button>
             </form>
         </div>
