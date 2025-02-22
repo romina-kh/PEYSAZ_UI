@@ -1,7 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'; // multi paging
-import SignUp from './assets/pages/sign-up/sign-up';
-import SignIn from './assets/pages/sign-in/sign-in';
+import SignUp from './pages/sign-up/sign-up';
+import SignIn from './pages/sign-in/sign-in';
  // route: where we want to go
 function App() {
 
