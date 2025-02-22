@@ -20,6 +20,7 @@ const SignUp = () => {
     return(
         <div className='sign-up'>
             <form className='sign-up-form' onSubmit={handleSubmit(onSubmit)}>
+            <h1>Sign up</h1>
                 <h2>First Name:</h2>
                 <input placeholder='Romina...' type='text' {...register("First_name")}/>
                 <p className='error'>{errors.First_name?.message}</p> 
