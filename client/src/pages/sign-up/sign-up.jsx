@@ -61,6 +61,9 @@ const SignUp = () => {
                 <p className='error'>{errors.Phone_number?.message}</p> 
                 
                 <button type='submit'>Sign Up</button>
+
+                <h3>Already have an account?</h3>
+                <button onClick={() => {navigate("/sign-in")}}>Sign In</button>
             </form>
         </div>
     )
