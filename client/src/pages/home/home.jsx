@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"; //useEffect: all time
 import { useNavigate } from "react-router-dom";
+import AddressManager from "../address/address";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -44,6 +45,7 @@ const Home = () => {
                             onClose={() => setVisible(false)}
                         />
                     )}
+                    <AddressManager userId={costumer.ID}/>
                 </div>
             ) : (
                 <div>

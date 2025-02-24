@@ -17,8 +17,10 @@ app.get("/", (req, res) => {
 
 const costumerRoutes = require("./routes/costumers");
 const authRoutes = require("./routes/auth");
+const addressRoutes = require("./routes/address");
 app.use("/costumers", costumerRoutes);
 app.use("/auth" , authRoutes);
+app.use("/addresses", addressRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -30,7 +30,7 @@ const SignUp = () => {
             const result = await res.json();
 
             if (res.ok){
-                localStorage.setItem("costumer", JSON.stringify(res.costumer));
+                localStorage.setItem("costumer", JSON.stringify(result.costumer));
                 navigate("/");
 
             } else {
