@@ -10,24 +10,25 @@ const getAllUsers = async () => {
 };
 
 const createUser = async (userData) => {
-  const { ID, Phone_number, First_name, Last_name, Wallet_balance, Referral_code } = userData;
-  try {
-      const [result] = await db.query(
-          "INSERT INTO COSTUMER (ID, Phone_number, First_name, Last_name,Wallet_balance, Referral_code) VALUES (?, ?, ?, ?, ?, ?)",
-          [ID, Phone_number, First_name,Last_name, Wallet_balance, Referral_code]
-      );
-
-      if (result.affectedRows === 0) {
-          throw new Error("User creation failed");
-      }
-
-      
-      const [newUser] = await db.query("SELECT * FROM COSTUMER WHERE ID = ?", [ID]);
-      
-      return newUser[0]; 
-  } catch (err) {
-      throw err;
-  }
-};
+    const { Phone_number, First_name, Last_name, Referral_code } = userData;
+    
+    try {
+        const [result] = await db.query(
+            "INSERT INTO COSTUMER (Phone_number, First_name, Last_name, Referral_code) VALUES (?, ?, ?, ?)",
+            [Phone_number, First_name, Last_name, Referral_code || null]
+        );
+  
+        if (result.affectedRows === 0) {
+            throw new Error("User creation failed");
+        }
+  
+        // Retrieve the newly created user using LAST_INSERT_ID()
+        const [newUser] = await db.query("SELECT * FROM COSTUMER WHERE ID = LAST_INSERT_ID()");
+        
+        return newUser[0]; 
+    } catch (err) {
+        throw err;
+    }
+  };
 
 module.exports = { getAllUsers, createUser };

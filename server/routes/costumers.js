@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
         const newUser = await userService.createUser(req.body);
         res.json({ message: "User created", costumer: newUser });
     } catch (err) {
-        console.error("Error creating user:", err); // Logs the error in the terminal
+        console.error("Error creating user:", err);
         res.status(500).json({ error: err.message });
     }
 });

@@ -11,8 +11,8 @@ const SignUp = () => {
         First_name: yup.string().required(),
         Last_name: yup.string().required(),
         Phone_number:yup.number().required(),
-        ID: yup.string().required(),
-        Wallet_balance: yup.string().required()
+        // ID: yup.string().required(),
+        // Wallet_balance: yup.string().required()
     });
     // register :link  
     // resolver link yup to form -- yup check validation
@@ -54,12 +54,6 @@ const SignUp = () => {
                 <p className='error'>{errors.Last_name?.message}</p> 
                 <h2>Phone number:</h2>
                 <input placeholder='09123456789' type='text'{...register("Phone_number")}/>
-                <p className='error'>{errors.Phone_number?.message}</p> 
-                <h2>ID:</h2>
-                <input placeholder='09123456789' type='text'{...register("ID")}/>
-                <p className='error'>{errors.Phone_number?.message}</p> 
-                <h2>Balance:</h2>
-                <input placeholder='09123456789' type='text'{...register("Wallet_balance")}/>
                 <p className='error'>{errors.Phone_number?.message}</p> 
                 
                 <button type='submit'>Sign Up</button>
