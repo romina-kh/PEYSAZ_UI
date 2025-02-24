@@ -15,9 +15,10 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const result = await userService.createUser(req.body);
-        res.json({ message: "User created", result });
+        const newUser = await userService.createUser(req.body);
+        res.json({ message: "User created", costumer: newUser });
     } catch (err) {
+        console.error("Error creating user:", err); // Logs the error in the terminal
         res.status(500).json({ error: err.message });
     }
 });

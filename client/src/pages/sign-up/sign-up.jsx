@@ -23,23 +23,23 @@ const SignUp = () => {
             const res = await fetch("http://localhost:5000/costumers", {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data),
             });
+    
             const result = await res.json();
-
-            if (res.ok){
+    
+            if (res.ok) {
                 localStorage.setItem("costumer", JSON.stringify(result.costumer));
                 navigate("/");
-
             } else {
-                console.error(result.message)
+                console.error(result.message);
             }
         } catch (error) {
-            console.log('Error:', error);
+            console.log("Error:", error);
         }
-    }
+    };
 //========
 //we open {} because it is js
     return(
