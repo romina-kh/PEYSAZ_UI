@@ -21,17 +21,7 @@ router.post("/login", (req, res) =>
 
     const costumer = results[0];
 
-    res.json({
-      message: "Login successful",
-      costumer: {
-        ID: costumer.ID,
-        Phone_number: costumer.Phone_number,
-        First_name: costumer.First_name,
-        Last_name: costumer.Last_name,
-        Wallet_balance: costumer.Wallet_balance,
-        Referral_code: costumer.Referral_code
-      }
-    });
+    res.json({costumer});
   });
 });
 

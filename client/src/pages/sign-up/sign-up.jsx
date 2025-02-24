@@ -30,7 +30,9 @@ const SignUp = () => {
             const result = await res.json();
 
             if (res.ok){
+                localStorage.setItem("costumer", JSON.stringify(res.costumer));
                 navigate("/");
+
             } else {
                 console.error(result.message)
             }
