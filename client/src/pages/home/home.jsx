@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"; //useEffect: all time
 import { useNavigate } from "react-router-dom";
 import AddressManager from "../address/address";
+import ReferralCount from "../referral/referral";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -50,7 +51,9 @@ const Home = () => {
                     <h3>First Name: {costumer.First_name} </h3>
                     <h3>Last Name: {costumer.Last_name} </h3>
                     <h3>Phone Number: {costumer.Phone_number}</h3>
-                    <h3>Referral Code : {costumer.Referral_code ? costumer.Referral_code : "_______"}</h3>
+                    <h3>Referral Code : {costumer.Referral_code}</h3>
+                    <ReferralCount referralCode={costumer.Referral_code}/>
+                    <DiscountCounter costumer={costumer}/>
                     <h3>Wallet Balance: {costumer.Wallet_balance}</h3>
                     <h3>Status: {costumer.isVIP ? "⭐️ VIP User ⭐️" : "Regular User"}</h3>
                     {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
@@ -145,6 +148,33 @@ const EditProfile = ({ costumer, setCostumer, onClose }) => {
             <button onClick={handleUpdate}>Update Profile</button>
             <button onClick={handleDelete} >Delete Account</button>
             <button onClick={onClose}>Cancel</button>
+        </div>
+    );
+};
+
+const DiscountCounter = ({ costumer }) => {
+    const [discountCount, setDiscountCount] = useState(0);
+
+    const fetchDiscounts = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/referrals/discounts/${id}`);
+            const data = await response.json();
+            return data.discountCount;
+        } catch (error) {
+            console.error("Error fetching discount codes:", error);
+            return 0;
+        }
+    };
+
+    useEffect(() => {
+        if (costumer?.ID) {
+            fetchDiscounts(costumer.ID).then(setDiscountCount);
+        }
+    }, [costumer?.ID]);
+
+    return (
+        <div>
+            <h3>Discount Codes Earned: {discountCount}</h3>
         </div>
     );
 };

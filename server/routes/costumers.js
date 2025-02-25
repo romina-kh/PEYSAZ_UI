@@ -67,7 +67,7 @@ router.get("/profile/:id", async (req, res) => {
 
     try {
         const [userResult] = await db.query(
-            "SELECT ID, Phone_number, First_name, Last_name, Wallet_balance, Referral_code FROM COSTUMER WHERE ID = ?",
+            "SELECT ID, Phone_number, First_name, Last_name, Wallet_balance, Referral_code, CTimestamp FROM COSTUMER WHERE ID = ?",
             [userId]
         );
 
