@@ -8,11 +8,26 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("costumer");
-        if (storedUser) {
-            setCostumer(JSON.parse(storedUser));
-        }
+        const fetchProfile = async () => {
+            const storedUser = localStorage.getItem("costumer");
+            if (!storedUser) return;
+
+            const parsedUser = JSON.parse(storedUser);
+            try {
+                const response = await fetch(`http://localhost:5000/costumers/profile/${parsedUser.ID}`);
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message);
+
+                setCostumer(result);
+                localStorage.setItem("costumer", JSON.stringify(result)); // Save updated profile
+            } catch (error) {
+                console.error("Error fetching profile:", error.message);
+            }
+        };
+
+        fetchProfile();
     }, []);
+
 
     const logout = () => {
         localStorage.removeItem("costumer");
@@ -35,7 +50,10 @@ const Home = () => {
                     <h3>First Name: {costumer.First_name} </h3>
                     <h3>Last Name: {costumer.Last_name} </h3>
                     <h3>Phone Number: {costumer.Phone_number}</h3>
+                    <h3>Referral Code : {costumer.Referral_code ? costumer.Referral_code : "_______"}</h3>
                     <h3>Wallet Balance: {costumer.Wallet_balance}</h3>
+                    <h3>Status: {costumer.isVIP ? "⭐️ VIP User ⭐️" : "Regular User"}</h3>
+                    {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
                     <button onClick={logout}>Logout</button>
                     <button onClick={() => setVisible(true)}>Edit</button>
                     {visible && (
