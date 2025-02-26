@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"; //useEffect: all time
 import { useNavigate } from "react-router-dom";
 import AddressManager from "../address/address";
 import ReferralCount from "../referral/referral";
+import ExpiringDiscounts from "../referral/expiringdiscounts";
+import CartState from "../referral/cartstate";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -57,6 +59,8 @@ const Home = () => {
                     <h3>Wallet Balance: {costumer.Wallet_balance}</h3>
                     <h3>Status: {costumer.isVIP ? "⭐️ VIP User ⭐️" : "Regular User"}</h3>
                     {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
+                    <ExpiringDiscounts userId={costumer.ID}/>
+                    <CartState customerId={costumer.ID} />
                     <button onClick={logout}>Logout</button>
                     <button onClick={() => setVisible(true)}>Edit</button>
                     {visible && (
