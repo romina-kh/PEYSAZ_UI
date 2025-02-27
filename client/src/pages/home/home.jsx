@@ -4,6 +4,9 @@ import AddressManager from "../address/address";
 import ReferralCount from "../referral/referral";
 import ExpiringDiscounts from "../referral/expiringdiscounts";
 import CartState from "../referral/cartstate";
+import Last5Shopping from "../referral/shopping";
+import ShoppingHistory from "../referral/15precent";
+import CompatibilityChecker from "../referral/compatible";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -22,7 +25,7 @@ const Home = () => {
                 if (!response.ok) throw new Error(result.message);
 
                 setCostumer(result);
-                localStorage.setItem("costumer", JSON.stringify(result)); // Save updated profile
+                localStorage.setItem("costumer", JSON.stringify(result));
             } catch (error) {
                 console.error("Error fetching profile:", error.message);
             }
@@ -61,6 +64,9 @@ const Home = () => {
                     {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
                     <ExpiringDiscounts userId={costumer.ID}/>
                     <CartState customerId={costumer.ID} />
+                    <Last5Shopping customerId={costumer.ID} />
+                    <ShoppingHistory userId={costumer.ID} />
+                    <CompatibilityChecker userId={costumer.ID}/>
                     <button onClick={logout}>Logout</button>
                     <button onClick={() => setVisible(true)}>Edit</button>
                     {visible && (
