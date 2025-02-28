@@ -6,7 +6,7 @@ import ExpiringDiscounts from "../referral/expiringdiscounts";
 import CartState from "../referral/cartstate";
 import Last5Shopping from "../referral/shopping";
 import ShoppingHistory from "../referral/15precent";
-import CompatibilityChecker from "../referral/compatible";
+import Sazgaryab from "../referral/compatible";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -66,7 +66,7 @@ const Home = () => {
                     <CartState customerId={costumer.ID} />
                     <Last5Shopping customerId={costumer.ID} />
                     <ShoppingHistory userId={costumer.ID} />
-                    <CompatibilityChecker userId={costumer.ID}/>
+                    <Sazgaryab userId={costumer.ID} isVIP={costumer.isVIP}/>
                     <button onClick={logout}>Logout</button>
                     <button onClick={() => setVisible(true)}>Edit</button>
                     {visible && (

@@ -35,7 +35,6 @@ const SignIn = () => {
             
           }
       
-          console.log("Login successful:", res.costumer);
          
           localStorage.setItem("costumer", JSON.stringify(res.costumer));
 

@@ -21,7 +21,7 @@ const addressRoutes = require("./routes/address");
 const referralRoutes = require("./routes/referral");
 const discountsRoutes = require("./routes/discounts");
 const cartRoutes = require("./routes/cart");
-const compatibleRoutes = require("./routes/compatible")
+const sazgaryabRoutes = require("./routes/sazgaryab")
 const shoppingRoutes = require("./routes/shopping");
 
 
@@ -32,7 +32,7 @@ app.use("/addresses", addressRoutes);
 app.use("/referrals",referralRoutes);
 app.use("/discounts",discountsRoutes);
 app.use("/cart", cartRoutes);
-app.use("/compatible", compatibleRoutes);
+app.use("/sazgaryab", sazgaryabRoutes);
 app.use("/shopping", shoppingRoutes);
 
 

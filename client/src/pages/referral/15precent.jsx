@@ -14,7 +14,6 @@ const ShoppingHistory = ({ userId }) => {
                 }
                 const data = await response.json();
                 setHistory(data.shoppingHistory);
-                console.log(data);
                 setCashback(data.cashbackAmount);
             } catch (error) {
                 console.error("Error fetching shopping history:", error);
@@ -44,7 +43,7 @@ const ShoppingHistory = ({ userId }) => {
                             </li>
                         ))}
                     </ul>
-                    <h3>Total Cashback Earned: ${cashback}</h3>
+                    <h3>Total Cashback Earned: ${cashback * -1}</h3>
                 </div>
             )}
         </div>

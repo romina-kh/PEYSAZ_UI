@@ -1,61 +1,63 @@
 import React, { useState } from "react";
 
-const CompatibilityChecker = ({ userId }) => {
-    const [componentType, setComponentType] = useState("");
-    const [compatibleProducts, setCompatibleProducts] = useState([]);
-    const [error, setError] = useState("");
+const Sazgaryab = ({ userId, isVIP }) => {
+  const [productName, setProductName] = useState("");
+  const [compatibleProducts, setCompatibleProducts] = useState([]);
+  const [error, setError] = useState("");
 
-    const fetchCompatibleProducts = async () => {
-        if (!componentType.trim()) {
-            setError("Please enter a component type.");
-            return;
-        }
+  const fetchCompatibleProducts = async () => {
+    if (productName.length < 3) {
+      setError("Please enter a full product name.");
+      setCompatibleProducts([]);
+      return;
+    }
 
-        try {
-            const response = await fetch(`http://localhost:5000/compatible/${userId}/${componentType}`);
-            const data = await response.json();
+    try {
+      const response = await fetch(
+        `http://localhost:5000/sazgaryab/${userId}/${encodeURIComponent(productName)}`
+      );
+      const data = await response.json();
 
-            if (data.message) {
-                setError(data.message);
-                setCompatibleProducts([]);
-            } else {
-                setCompatibleProducts(data.compatibleProducts);
-                setError("");
-            }
-        } catch (err) {
-            setError("Failed to fetch compatible products.");
-        }
-    };
+      if (!response.ok) {
+        setError(data.error || "Something went wrong.");
+        setCompatibleProducts([]);
+      } else {
+        setCompatibleProducts(data.compatibleProducts);
+        setError("");
+      }
+    } catch (err) {
+      setError("Failed to fetch data.");
+      setCompatibleProducts([]);
+    }
+  };
 
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            fetchCompatibleProducts();
-        }
-    };
-
-    return (
+  return (
+    <div>
+      {isVIP && (
         <div>
-            <h2>Check Compatibility</h2>
-            <input
-                type="text"
-                placeholder="Enter component type (e.g., GPU, CPU, SSD)"
-                value={componentType}
-                onChange={(e) => setComponentType(e.target.value)}
-                onKeyPress={handleKeyPress}
-            />
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            <h3>Compatible Products:</h3>
+          <h2>Sazgaryab - Find Compatible Products</h2>
+          <input
+            type="text"
+            placeholder="Type product name..."
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+          />
+          <button onClick={fetchCompatibleProducts}>Search</button>
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {compatibleProducts.length > 0 && (
             <ul>
-                {compatibleProducts.map((product, index) => (
-                    <li key={index}>
-                        <strong>Brand:</strong> {product.Brand} | 
-                        <strong> Model:</strong> {product.Model} | 
-                        <strong> Price:</strong> ${product.Current_price}
-                    </li>
-                ))}
+              {compatibleProducts.map((product) => (
+                <li key={product.ID}>
+                  {product.Brand} {product.Model} ({product.Category})
+                </li>
+              ))}
             </ul>
+          )}
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
-export default CompatibilityChecker;
+export default Sazgaryab;
