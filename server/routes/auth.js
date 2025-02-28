@@ -16,7 +16,7 @@ router.post("/login", async (req, res) => {
         );
 
         if (results.length === 0) {
-            return res.status(401).json({ message: "Customer not found" });
+            return res.status(401).json({ message: "Customer NOT found!" });
         }
 
         const costumer = results[0];

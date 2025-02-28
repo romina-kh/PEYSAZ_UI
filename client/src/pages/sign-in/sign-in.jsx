@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup' // validation
+import {yupResolver} from '@hookform/resolvers/yup' 
 import {useNavigate} from "react-router-dom";
 import { useState } from 'react';
 
@@ -13,8 +13,7 @@ const SignIn = () => {
     const schema = yup.object().shape({
           Phone_number:yup.number().notRequired()
     });
-    // register :link  
-    // resolver link yup to form -- yup check validation
+ 
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(schema)}); 
 
 
@@ -43,7 +42,7 @@ const SignIn = () => {
          
         } catch (error) {
           console.error("Error logging in:", error.message);
-          setLogin("(>ᴗ•) !بچه خوشگل میبینم که به حرفم گوش نمیدی!گفتم که اگه اکانت نداری این دکمه ی پایین رو آٰروم فشار بده");
+          setLogin("Customer NOT found!");
         }
       };
       

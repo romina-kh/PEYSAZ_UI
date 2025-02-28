@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-const ShoppingHistory = ({ userId }) => {
+const ShoppingHistory = () => {
     const [history, setHistory] = useState([]);
     const [cashback, setCashback] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [userId, setUserId] = useState("");
+
 
     useEffect(() => {
+        const storedUser = localStorage.getItem("costumer");
+        if (!storedUser) return;
+        const user = JSON.parse(storedUser);
+        setUserId(user.ID);
         const fetchShoppingHistory = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/shopping/monthly/${userId}`);
+                const response = await fetch(`http://localhost:5000/shopping/monthly/${user.ID}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch shopping history");
                 }

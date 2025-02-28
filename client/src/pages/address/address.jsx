@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
+import Navbar from "../navbar/navbar";
 
-const AddressManager = ({ userId }) => {
+const AddressManager = () => {
     const [addresses, setAddresses] = useState([]);
     const [province, setProvince] = useState("");
     const [remainder, setRemainder] = useState("");
+    const [userId, setUserId] = useState("");
 
     useEffect(() => {
+
         fetchAddresses();
     }, []);
 
     const fetchAddresses = async () => {
+        const storedUser = localStorage.getItem("costumer");
+        if (!storedUser) return;
+        const user = JSON.parse(storedUser);
+        setUserId(user.ID);
         try {
-            const response = await fetch(`http://localhost:5000/addresses/${userId}`);
+            const response = await fetch(`http://localhost:5000/addresses/${user.ID}`);
             const data = await response.json();
             setAddresses(data);
         } catch (error) {
@@ -57,6 +64,7 @@ const AddressManager = ({ userId }) => {
 
     return (
         <div>
+            <Navbar/>
             <h2>Manage Addresses</h2>
 
             <label>Province:</label>

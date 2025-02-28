@@ -1,3 +1,13 @@
 @import url("./pages/sign-up/sign-up.css");
 @import url("./pages/sign-in/sign-in.css");
 @import url("./pages/home/home.css");
+@import url("./pages/navbar/navbar.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body{
+    padding-top: 70px;
+}

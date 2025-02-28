@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react"; //useEffect: all time
+import { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router-dom";
-import AddressManager from "../address/address";
-import ReferralCount from "../referral/referral";
-import ExpiringDiscounts from "../referral/expiringdiscounts";
-import CartState from "../referral/cartstate";
-import Last5Shopping from "../referral/shopping";
-import ShoppingHistory from "../referral/15precent";
-import Sazgaryab from "../referral/compatible";
+import ReferralCount from "../general/referral";
+import DiscountCounter from '../components/discount-counter'
+import Navbar from "../navbar/navbar";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -47,6 +43,7 @@ const Home = () => {
 
     return (
         <div>
+            <Navbar/>
             <h1>WELCOME TO PEYSAZ</h1>
             {costumer ? (
                 <div>
@@ -62,11 +59,6 @@ const Home = () => {
                     <h3>Wallet Balance: {costumer.Wallet_balance}</h3>
                     <h3>Status: {costumer.isVIP ? "⭐️ VIP User ⭐️" : "Regular User"}</h3>
                     {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
-                    <ExpiringDiscounts userId={costumer.ID}/>
-                    <CartState customerId={costumer.ID} />
-                    <Last5Shopping customerId={costumer.ID} />
-                    <ShoppingHistory userId={costumer.ID} />
-                    <Sazgaryab userId={costumer.ID} isVIP={costumer.isVIP}/>
                     <button onClick={logout}>Logout</button>
                     <button onClick={() => setVisible(true)}>Edit</button>
                     {visible && (
@@ -76,11 +68,10 @@ const Home = () => {
                             onClose={() => setVisible(false)}
                         />
                     )}
-                    <AddressManager userId={costumer.ID}/>
                 </div>
             ) : (
                 <div>
-                    <h2>You are NOT logged in(ای شیطون فکر کردی حالیم نمیشه؟)!</h2>
+                    <h2>You are NOT logged in!</h2>
                     <button onClick={() => navigate("sign-in")}>Sign In</button>
                     <button onClick={() => navigate("sign-up")}>Sign Up</button>
                 </div>
@@ -162,31 +153,6 @@ const EditProfile = ({ costumer, setCostumer, onClose }) => {
     );
 };
 
-const DiscountCounter = ({ costumer }) => {
-    const [discountCount, setDiscountCount] = useState(0);
 
-    const fetchDiscounts = async (id) => {
-        try {
-            const response = await fetch(`http://localhost:5000/referrals/discounts/${id}`);
-            const data = await response.json();
-            return data.discountCount;
-        } catch (error) {
-            console.error("Error fetching discount codes:", error);
-            return 0;
-        }
-    };
-
-    useEffect(() => {
-        if (costumer?.ID) {
-            fetchDiscounts(costumer.ID).then(setDiscountCount);
-        }
-    }, [costumer?.ID]);
-
-    return (
-        <div>
-            <h3>Discount Codes Earned: {discountCount}</h3>
-        </div>
-    );
-};
 
 export default Home;

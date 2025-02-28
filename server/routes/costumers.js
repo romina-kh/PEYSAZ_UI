@@ -1,12 +1,39 @@
 const express = require("express");
 const router = express.Router();
-const userService = require("../services/costumers");
 const db = require("../config/db");
+
+const getUsers = async () => {
+    try {
+        const [results] = await db.query("SELECT * FROM COSTUMER");
+        return results;
+    } catch (err) {
+        throw err;
+    }
+};
+
+const createUser = async (userData) => {
+    const { Phone_number, First_name, Last_name, Referral_code } = userData;
+    
+    try {
+        const [result] = await db.query(
+            "INSERT INTO COSTUMER (Phone_number, First_name, Last_name, Referral_code) VALUES (?, ?, ?, ?)",
+            [Phone_number, First_name, Last_name, Referral_code ]
+        );
+  
+        if (result.affectedRows === 0) {
+            throw new Error("User creation failed");
+        }
+        const [newUser] = await db.query("SELECT * FROM COSTUMER WHERE ID = LAST_INSERT_ID()");
+        return newUser[0]; 
+    } catch (err) {
+        throw err;
+    }
+  };
 
 
 router.get("/", async (req, res) => {
     try {
-        const users = await userService.getAllUsers();
+        const users = await getUsers();
         res.json(users);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -15,7 +42,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const newUser = await userService.createUser(req.body);
+        const newUser = await createUser(req.body);
         res.json({ message: "User created", costumer: newUser });
     } catch (err) {
         console.error("Error creating user:", err);

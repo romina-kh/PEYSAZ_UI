@@ -5,15 +5,14 @@ import {useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // go mikone
 
     const schema = yup.object().shape({
-        First_name: yup.string().required(),
-        Last_name: yup.string().required(),
-        Phone_number:yup.number().required(),
-        // ID: yup.string().required(),
-        // Wallet_balance: yup.string().required()
+        First_name: yup.string().required("First Name is Required!"),
+        Last_name: yup.string().required("Last Name is Required!"),
+        Phone_number:yup.number().required("Phone Number is Required!"),
     });
+
     // register :link  
     // resolver link yup to form -- yup check validation
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(schema)}); 
@@ -31,7 +30,7 @@ const SignUp = () => {
             const result = await res.json();
     
             if (res.ok) {
-                localStorage.setItem("costumer", JSON.stringify(result.costumer));
+                localStorage.setItem("costumer", JSON.stringify(result.costumer)); // make an item named costumer and put data in it
                 navigate("/");
             } else {
                 console.error(result.message);
@@ -40,24 +39,21 @@ const SignUp = () => {
             console.log("Error:", error);
         }
     };
-//========
-//we open {} because it is js
+
     return(
         <div className='sign-up'>
-            <form className='sign-up-form' onSubmit={handleSubmit(onSubmit)}>
             <h1>Sign up</h1>
+            <form className='sign-up-form' onSubmit={handleSubmit(onSubmit)}>
                 <h2>First Name:</h2>
-                <input placeholder='Romina...' type='text' {...register("First_name")}/>
+                <input placeholder='John...' type='text' {...register("First_name")}/>
                 <p className='error'>{errors.First_name?.message}</p> 
                 <h2>Last Name:</h2>
-                <input placeholder='Mohammadi...' type='text' {...register("Last_name")}/>
+                <input placeholder='Doe...' type='text' {...register("Last_name")}/>
                 <p className='error'>{errors.Last_name?.message}</p> 
                 <h2>Phone number:</h2>
                 <input placeholder='09123456789' type='text'{...register("Phone_number")}/>
                 <p className='error'>{errors.Phone_number?.message}</p> 
-                
                 <button type='submit'>Sign Up</button>
-
                 <h3>Already have an account?</h3>
                 <button onClick={() => {navigate("/sign-in")}}>Sign In</button>
             </form>

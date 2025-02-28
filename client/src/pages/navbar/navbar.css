@@ -1,0 +1,45 @@
+.navbar
+{
+    height: 70px;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background-color:cornflowerblue;
+
+}
+
+.nav-container
+{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links
+{
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item
+{
+    color: darkblue;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+
+}
+
+.nav-item:hover
+{
+    color: azure;
+    background-color: darkblue;
+    transition: 0.3s;
+}
+
