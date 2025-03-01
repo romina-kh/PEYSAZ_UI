@@ -3,8 +3,8 @@ import Navbar from "../navbar/navbar";
 
 const Sazgaryab = () => {
   const [productInput, setProductInput] = useState("");
-  const [productCompatibilities, setProductCompatibilities] = useState({});
-  const [commonCompatibleProducts, setCommonCompatibleProducts] = useState([]);
+  const [productSazgar, setProductSazgar] = useState({});
+  const [common, setCommon] = useState([]);
   const [error, setError] = useState("");
   const [userId, setUserId] = useState("");
   const [isVIP, setIsVIP] = useState("");
@@ -16,14 +16,15 @@ const Sazgaryab = () => {
           if (!storedUser) return;
           const user = JSON.parse(storedUser);
           setUserId(user.ID);
-          setIsVIP(user.isVIP)
+          setIsVIP(user.isVIP);
       }, [userId]);
 
   const fetchCompatibleProducts = async () => {
     if (productInput.length < 3) {
       setError("Please enter at least one valid product.");
-      setProductCompatibilities({});
-      setCommonCompatibleProducts([]);
+      setProductSazgar({});
+      setCommon([]);
+
       return;
     }
 
@@ -32,20 +33,22 @@ const Sazgaryab = () => {
         `http://localhost:5000/sazgaryab/${userId}/${encodeURIComponent(productInput)}`
       );
       const data = await response.json();
+      
+
 
       if (!response.ok) {
         setError(data.error || "Something went wrong.");
-        setProductCompatibilities({});
-        setCommonCompatibleProducts([]);
+        setProductSazgar({});
+        setCommon([]);
       } else {
-        setProductCompatibilities(data.productCompatibilities || {});
-        setCommonCompatibleProducts(data.commonCompatibleProducts || []); 
+        setProductSazgar(data.productSazgar || {});
+        setCommon(data.common || []); 
         setError("");
       }
     } catch (err) {
       setError("Failed to fetch data.");
-      setProductCompatibilities({});
-      setCommonCompatibleProducts([]);
+      setProductSazgar({});
+      setCommon([]);
     }
   };
 
@@ -65,10 +68,10 @@ const Sazgaryab = () => {
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
-          {Object.keys(productCompatibilities).length > 0 && (
+          {Object.keys(productSazgar).length > 0 && (
             <div>
               <h3>Compatibility Results</h3>
-              {Object.entries(productCompatibilities).map(([product, compatibles]) => (
+              {Object.entries(productSazgar).map(([product, compatibles]) => (
                 <div key={product}>
                   <h4>{product}</h4>
                   {compatibles.length > 0 ? (
@@ -87,11 +90,11 @@ const Sazgaryab = () => {
             </div>
           )}
 
-          {commonCompatibleProducts.length > 0 && (
+          {common.length > 0 && (
             <div>
               <h3>Common Compatible Products</h3>
               <ul>
-                {commonCompatibleProducts.map((product) => (
+                {common.map((product) => (
                   <li key={product.ID}>
                     {product.Brand} {product.Model} ({product.Category})
                   </li>
