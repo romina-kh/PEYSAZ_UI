@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    background-color:cornflowerblue;
+    background-color : #1f2833 ;
 
 }
 
@@ -28,7 +28,7 @@
 
 .nav-item
 {
-    color: darkblue;
+    color: #45a29e ;
     font-size: 16px;
     text-decoration: none;
     padding: 10px 15px;
@@ -38,8 +38,8 @@
 
 .nav-item:hover
 {
-    color: azure;
-    background-color: darkblue;
+    color: #1f2833;
+    background-color: rgb(255, 102, 0);
     transition: 0.3s;
 }
 
