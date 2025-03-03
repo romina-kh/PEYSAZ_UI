@@ -38,12 +38,12 @@ router.get("/monthly/:userId", async (req, res) => {
     try {
         const [transactions] = await db.query(
             `SELECT L.Cart_number, L.CNumber, T.Tracking_code, T.transaction_status, T.TTimestamp
-             FROM LOCKED_SHOPPING_CART L
+             FROM VIP_CLIENTS V JOIN LOCKED_SHOPPING_CART L ON V.VID = L.LCID
              JOIN ISSUED_FOR I ON L.LCID = I.IID AND L.Cart_number = I.ICart_number AND L.CNumber = I.ILocked_Number
              JOIN TRANSACTIONS T ON I.ITracking_code = T.Tracking_code
              WHERE L.LCID = ?
              AND T.transaction_status = 'successful'
-             AND T.TTimestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+             AND T.TTimestamp >= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND V.Subscription_expiration_time > CURRENT_TIMESTAMP
              ORDER BY T.TTimestamp DESC`,
             [userId]
         );
