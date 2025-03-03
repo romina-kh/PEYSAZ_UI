@@ -71,6 +71,7 @@ router.get("/monthly/:userId", async (req, res) => {
 
         const shoppingHistory = await Promise.all(cartPromises);
         const cashbackAmount = totalSpent * 0.15; 
+        Math.abs(cashbackAmount);
 
         res.json({ shoppingHistory, cashbackAmount });
     } catch (error) {

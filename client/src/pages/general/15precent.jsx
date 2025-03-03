@@ -49,7 +49,7 @@ const ShoppingHistory = () => {
                             </li>
                         ))}
                     </ul>
-                    <h3>Total Cashback Earned: ${cashback * -1}</h3>
+                    <h3>Total Cashback Earned: ${cashback}</h3>
                 </div>
             )}
         </div>
