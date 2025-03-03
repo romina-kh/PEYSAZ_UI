@@ -10,7 +10,7 @@ const SignUp = () => {
     const schema = yup.object().shape({
         First_name: yup.string().required("First Name is Required!"),
         Last_name: yup.string().required("Last Name is Required!"),
-        Phone_number:yup.number().required("Phone Number is Required!"),
+        Phone_number:yup.number("Phone Number Must be a Number").required("Phone Number is Required!").typeError("Phone Number is Required!"),
     });
 
     // register :link  
@@ -42,7 +42,7 @@ const SignUp = () => {
 
     return(
         <div className='sign-up'>
-            <h1>Sign up</h1>
+            <h1>Sign Up to Peysaz</h1>
             <form className='sign-up-form' onSubmit={handleSubmit(onSubmit)}>
                 <h2>First Name:</h2>
                 <input placeholder='John...' type='text' {...register("First_name")}/>
@@ -55,7 +55,7 @@ const SignUp = () => {
                 <p className='error'>{errors.Phone_number?.message}</p> 
                 <button type='submit'>Sign Up</button>
                 <h3>Already have an account?</h3>
-                <button onClick={() => {navigate("/sign-in")}}>Sign In</button>
+                <button className='sing-in-button' onClick={() => {navigate("/sign-in")}}>Sign In</button>
             </form>
         </div>
     )

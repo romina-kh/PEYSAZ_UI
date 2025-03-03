@@ -11,7 +11,7 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     const schema = yup.object().shape({
-          Phone_number:yup.number().notRequired()
+          Phone_number:yup.number("Phone Number Must be a Number").required("Phone Number is Required!").typeError("Phone Number is Required!")
     });
  
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(schema)}); 
@@ -49,15 +49,15 @@ const SignIn = () => {
       
     return(
         <div className='sign-in'>
+          <h1>Sign In to Peysaz</h1>
             <form className='sign-in-form' onSubmit={handleSubmit(onSubmit)}>
-                <h1>Sign in</h1>
                 <h2>Phone number:</h2>
                 <input placeholder='09123456789' type='text'{...register("Phone_number")}/>
                 <p className='error'>{errors.Phone_number?.message}</p> 
                 <button type='submit'>Sign in</button>
-                <p>{login}</p>
+                <p className='error'>{login}</p>
                 <h3>Don't have an account?</h3>
-                <button onClick={() => {navigate("/sign-up")}}>Sign Up</button>
+                <button className='sing-up-button' onClick={() => {navigate("/sign-up")}}>Sign Up</button>
             </form>
         </div>
     )

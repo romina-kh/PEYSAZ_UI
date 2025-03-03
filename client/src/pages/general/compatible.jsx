@@ -53,12 +53,12 @@ const Sazgaryab = () => {
   };
 
   return (
-    <div>
+    <div className="sazgaryab">
       <Navbar/>
       {isVIP && (
-        <div>
+        <div className="sazgaryab-container">
           <h2>Sazgaryab - Find Compatible Products</h2>
-          <input
+          <input 
             type="text"
             placeholder="Enter products (e.g., GPU RTX 3080, CPU i7-12700K)"
             value={productInput}
@@ -66,11 +66,23 @@ const Sazgaryab = () => {
           />
           <button onClick={fetchCompatibleProducts}>Search</button>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p className="error">{error}</p>}
 
           {Object.keys(productSazgar).length > 0 && (
+            <div className="sazgaryab-res">
+              {common.length > 0 && (
             <div>
-              <h3>Compatibility Results</h3>
+              <h3>Common Compatible Products</h3>
+              <ul>
+                {common.map((product) => (
+                  <li className="common-li" key={product.ID}>
+                    {product.Brand} {product.Model} ({product.Category})
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+             
               {Object.entries(productSazgar).map(([product, compatibles]) => (
                 <div key={product}>
                   <h4>{product}</h4>
@@ -83,25 +95,14 @@ const Sazgaryab = () => {
                       ))}
                     </ul>
                   ) : (
-                    <p>No compatible products found.</p>
+                    <p className="error">No compatible products found.</p>
                   )}
                 </div>
               ))}
             </div>
           )}
 
-          {common.length > 0 && (
-            <div>
-              <h3>Common Compatible Products</h3>
-              <ul>
-                {common.map((product) => (
-                  <li key={product.ID}>
-                    {product.Brand} {product.Model} ({product.Category})
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+  
         </div>
       )}
     </div>
