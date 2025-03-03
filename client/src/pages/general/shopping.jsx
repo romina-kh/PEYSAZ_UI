@@ -10,11 +10,7 @@ const Last5Shopping = ({ customerId }) => {
                 const response = await fetch(`http://localhost:5000/shopping/last-5-shopping/${customerId}`);
                 const data = await response.json();
 
-                if (data.last5Shopping.length > 0) {
-                    setTransactions(data.last5Shopping);
-                } else {
-                    setTransactions([]);
-                }
+                setTransactions(data.last5Shopping || []);
             } catch (error) {
                 console.error("Error fetching transactions:", error);
             } finally {
@@ -40,7 +36,22 @@ const Last5Shopping = ({ customerId }) => {
                             <strong>Status:</strong> {transaction.Status} <br />
                             <strong>Cart Number:</strong> {transaction.CartNumber} <br />
                             <strong>Locked Number:</strong> {transaction.LockedNumber} <br />
-                            <strong>Date:</strong> {new Date(transaction.Timestamp).toLocaleString()}
+                            <strong>Date:</strong> {new Date(transaction.Timestamp).toLocaleString()} <br />
+                            
+                            {transaction.Products && transaction.Products.length > 0 ? (
+                                <ul>
+                                    {transaction.Products.map((product, pIndex) => (
+                                        <li key={pIndex} style={{ marginTop: "10px", paddingLeft: "20px" }}>
+                                            <strong>Brand:</strong> {product.Brand} <br />
+                                            <strong>Model:</strong> {product.Model} <br />
+                                            <strong>Quantity:</strong> {product.Quantity} <br />
+                                            <strong>Price:</strong> ${product.Cart_price}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No products found for this transaction</p>
+                            )}
                         </li>
                     ))}
                 </ul>

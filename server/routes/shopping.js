@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-
 router.get("/last-5-shopping/:customerId", async (req, res) => {
     const { customerId } = req.params;
 
     try {
-        const [result] = await db.query(
+        
+        const [transactions] = await db.query(
             `SELECT i.ITracking_code AS TrackingCode, 
                     t.transaction_status AS Status, 
                     i.ICart_number AS CartNumber, 
@@ -21,12 +21,30 @@ router.get("/last-5-shopping/:customerId", async (req, res) => {
             [customerId]
         );
 
-        res.json({ last5Shopping: result });
+      
+        if (transactions.length === 0) {
+            return res.json({ last5Shopping: [] });
+        }
+
+        for (const transaction of transactions) {
+            const [products] = await db.query(
+                `SELECT P.Brand, P.Model, A.Quantity, A.Cart_price 
+                 FROM ADDED_TO A 
+                 JOIN PRODUCT P ON P.ID = A.Product_ID 
+                 WHERE A.LCID = ? AND A.Cart_number = ? AND A.Locked_number = ?`,
+                [customerId, transaction.CartNumber, transaction.LockedNumber]
+            );
+
+            transaction.Products = products;
+        }
+
+        res.json({ last5Shopping: transactions });
     } catch (error) {
-        console.error("Error fetching last 5 shopping transactions:", error);
+        console.error("Error fetching last 5 shopping transactions with products:", error);
         res.status(500).json({ message: "Server error" });
     }
 });
+
 
 
 //=====================================================================
