@@ -15,7 +15,7 @@ router.get("/last-5-shopping/:customerId", async (req, res) => {
                     t.TTimestamp AS Timestamp
              FROM ISSUED_FOR i
              JOIN TRANSACTIONS t ON i.ITracking_code = t.Tracking_code
-             WHERE i.IID = ?
+             WHERE i.IID = ? AND t.transaction_status = 'successful'
              ORDER BY t.TTimestamp DESC
              LIMIT 5`,
             [customerId]

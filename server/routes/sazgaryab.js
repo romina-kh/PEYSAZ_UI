@@ -38,19 +38,31 @@ const findsazgarP = async (productId, isVIP) => {
         WHERE P.ID IN (
             SELECT Power_ID FROM CONNECTOR_COMPATIBLE_WITH WHERE GPU_ID = ?
             UNION
+            SELECT GPU_ID FROM CONNECTOR_COMPATIBLE_WITH WHERE Power_ID = ?
+            UNION
             SELECT Motherboard_ID FROM SM_SLOT_COMPATIBLE_WITH WHERE SSD_ID = ?
+            UNION
+            SELECT SSD_ID FROM SM_SLOT_COMPATIBLE_WITH WHERE Motherboard_ID = ?
             UNION
             SELECT Motherboard_ID FROM RM_SLOT_COMPATIBLE_WITH WHERE RAM_ID = ?
             UNION
+            SELECT RAM_ID FROM RM_SLOT_COMPATIBLE_WITH WHERE Motherboard_ID = ?
+            UNION
             SELECT Cooler_ID FROM CC_SOCKET_COMPATIBLE_WITH WHERE CPU_ID = ?
+            UNION
+            SELECT CPU_ID FROM CC_SOCKET_COMPATIBLE_WITH WHERE Cooler_ID = ?
             UNION
             SELECT Motherboard_ID FROM MC_SOCKET_COMPATIBLE_WITH WHERE CPU_ID = ?
             UNION
+            SELECT CPU_ID FROM MC_SOCKET_COMPATIBLE_WITH WHERE Motherboard_ID = ?
+            UNION
             SELECT Motherboard_ID FROM GM_SLOT_COMPATIBLE_WITH WHERE GPU_ID = ?
+            UNION
+            SELECT GPU_ID FROM GM_SLOT_COMPATIBLE_WITH WHERE Motherboard_ID = ?
         )`;
 
     try {
-        const [results] = await db.query(query, [productId, productId, productId, productId, productId, productId]);
+        const [results] = await db.query(query, [productId, productId, productId, productId, productId, productId, productId, productId, productId, productId, productId, productId]);
         return isVIP ? results : results.filter(product => !product.VIP);
     } catch (error) {
         throw error;
@@ -90,7 +102,7 @@ router.get("/:userId/:product", async (req, res) => {
             allsazgarP.push(sazgarP.map(p => p.ID));
         }
 
-     
+        
         const commonIds = allsazgarP.reduce((acc, list) => {
             return acc.length === 0 ? list : acc.filter(id => list.includes(id));
         }, []);
