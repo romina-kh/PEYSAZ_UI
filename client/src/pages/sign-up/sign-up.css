@@ -1,5 +1,5 @@
 .sign-up{
-    background-color: #0b0c10;
+    background-color: #12151d;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -10,12 +10,12 @@
     background-color: #1f2833;
     padding: 5px 20px;
     border-radius: 20px;
-    box-shadow: 0 0 10px 2px #45a29e;
+    box-shadow: 0 0 10px 10px #45a29e;
     width: 500px;
     text-align: center;
 }
 .sign-up h1{
-    color: #45a29e;
+    color: #66fcf1;
     font-weight: bold;
     font-size: 45px;
     margin-bottom: 40px;
@@ -38,10 +38,10 @@
   .sign-up-form input:focus{
     border-color: #66fcf1;
     outline: none;
-    box-shadow: 0 0 10px 2px #66fcf1;
+    box-shadow: 0 0 8px 1px #66fcf1;
   }
   .sign-up-form button {
-    background-color: #45a29e;
+    background-color: #66fcf1;
     color: #0b0c10;
     border: none;
     padding: 10px 20px;
@@ -51,7 +51,7 @@
   }
   
   .sign-up-form button:hover , .sing-in-button:hover{
-    background-color: #66fcf1;
+    background-color: #45a29e;
     transition: background-color 0.3s;
   }
   .sign-up-form h3 {
