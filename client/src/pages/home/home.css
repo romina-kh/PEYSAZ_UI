@@ -6,12 +6,8 @@
     color:#c5c6c7;
 }
 
-.home {
-    min-height: 100vh;
-    background-color:  #12151d;
-}
 
-.profile-info button {
+.btn-p {
     background-color:#45a29e;
     color: #1f2833;
     border: none;
@@ -21,9 +17,10 @@
     margin: 10px 0;
     display: block;
     width: 100%;
+
 }
 
-.home button:hover {
+.btn-p:hover {
     background-color:#1f2833;
     color: #45a29e;
     transition: background-color 0.3s;
@@ -48,6 +45,9 @@
 .profile{
     margin-top: 70px;
     justify-items: center;
+    min-height: 100vh;
+    background-color:  #12151d;
+    
 }
 .profile-info {
     border: 1px solid #45a29e;
@@ -72,20 +72,83 @@
 .home h4{
     color:#185653;
 }
-.not-logged-in{
-    justify-items: center;
+.not-logged-in {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
 }
-.not-logged-in h2{
-    color: #66fcf1;
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
-.not-logged-in button{
-    background-color:#45a29e;
-    color: #1f2833;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px 0;
-    display: block;
-    width: 100px;
+
+.home-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
+.buttons {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+
+  background-color: #45a29e;
+  border: 0;
+  border-radius: 56px;
+  color: #1f2833;
+  cursor: pointer;
+  display: inline-block;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  outline: 0;
+  padding: 16px 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+.btn:hover {
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
+
+
+.btn:hover {
+    background-color:#1f2833;
+    color: #45a29e;
+    transition: background-color 0.3s;
+}
+

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ReferralCount from "../general/referral";
 import DiscountCounter from "../components/discount-counter";
 import Navbar from "../navbar/navbar";
+import picture from "../../assets/1.png"
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -64,8 +65,8 @@ const Home = () => {
                         </h3>
                         <h3>Sign Up Date: {date(costumer.CTimestamp)}</h3>
                         {costumer.isVIP && <h3>Time Left: {costumer.VIP_Expires_In}</h3>}
-                        <button className="btn" onClick={logout}>Logout</button>
-                        <button className="btn" onClick={() => setVisible(true)}>Edit</button>
+                        <button className="btn-p" onClick={logout}>Logout</button>
+                        <button className="btn-p" onClick={() => setVisible(true)}>Edit</button>
                         {visible && (
                             <EditProfile
                                 costumer={costumer}
@@ -79,11 +80,14 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="not-logged-in">
-                    <h1>WELCOME TO PEYSAZ</h1>
-                    <h2>You are NOT logged in!</h2>
-                    <button className="btn" onClick={() => navigate("sign-in")}>Sign In</button>
-                    <button className="btn" onClick={() => navigate("sign-up")}>Sign Up</button>
+                <div className="image-container">
+                    <img className="home-pic" src={picture} alt="Home" />
+                    <div className="buttons">
+                        <button className="btn" onClick={() => navigate("sign-in")}>Sign In</button>
+                        <button className="btn" onClick={() => navigate("sign-up")}>Sign Up</button>
+                    </div>
                 </div>
+            </div>
             )}
         </div>
     );
@@ -144,17 +148,17 @@ const EditProfile = ({ costumer, setCostumer, onClose }) => {
     return (
         <div className="edit-profile">
             <label>First Name:</label>
-            <input className="input-field" type="text" name="First_name" value={formData.First_name} onChange={handleChange} />
+            <input className="input" type="text" name="First_name" value={formData.First_name} onChange={handleChange} />
             
             <label>Last Name:</label>
-            <input className="input-field" type="text" name="Last_name" value={formData.Last_name} onChange={handleChange} />
+            <input className="input" type="text" name="Last_name" value={formData.Last_name} onChange={handleChange} />
             
             <label>Phone Number:</label>
-            <input className="input-field" type="text" name="Phone_number" value={formData.Phone_number} onChange={handleChange} />
+            <input className="input" type="text" name="Phone_number" value={formData.Phone_number} onChange={handleChange} />
             
-            <button className="btn" onClick={handleUpdate}>Update Profile</button>
-            <button className="btn delete-btn" onClick={handleDelete}>Delete Account</button>
-            <button className="btn cancel-btn" onClick={onClose}>Cancel</button>
+            <button className="btn-p" onClick={handleUpdate}>Update Profile</button>
+            <button className="btn-p" onClick={handleDelete}>Delete Account</button>
+            <button className="btn-p" onClick={onClose}>Cancel</button>
         </div>
     );
 };
