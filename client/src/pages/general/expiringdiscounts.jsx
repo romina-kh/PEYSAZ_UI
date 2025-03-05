@@ -32,13 +32,13 @@ const ExpiringDiscounts = () => {
             <div className="expiring-container">
             <h2>Expiring Discount Codes</h2>
             {discounts.length === 0 ? (
-                <p>No discounts expiring soon.</p>
+                <p className="error">No discounts expiring soon.</p>
             ) : (
                 <ul>
                     {discounts.map((discount) => (
                         <li key={discount.DCODE}>
                             <strong>Code:</strong> {discount.DCODE} <br />
-                            <strong>Expires on:</strong> {new Date(discount.DTimestamp).toLocaleDateString()}
+                            <strong>Expires on:</strong> {new Date(discount.Expiration_date).toLocaleDateString()}
                         </li>
                     ))}
                 </ul>

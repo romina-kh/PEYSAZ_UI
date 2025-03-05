@@ -7,9 +7,9 @@ router.get("/expiring/:userId", async (req, res) => {
 
     try {
         const [result] = await db.query(
-            `SELECT p.DCODE , p.DTimestamp
-            FROM PRIVATE_CODE p
-            WHERE p.DID = ? AND p.DTimestamp <= NOW() + INTERVAL 7 DAY`,
+            `SELECT p.DCODE , d.Expiration_date
+            FROM PRIVATE_CODE p JOIN DISCOUNT_CODE d ON p.DCODE = d.DCODE
+            WHERE p.DID = ? AND d.Expiration_date > NOW() AND d.Expiration_date <= NOW() + INTERVAL 7 DAY`,
             [userId]
         );
 
