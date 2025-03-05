@@ -63,27 +63,32 @@ const AddressManager = () => {
     };
 
     return (
-        <div>
+        <div className="address">
             <Navbar/>
-            <h2>Manage Addresses</h2>
+            <div className="address-container">
+                <h2>Manage Addresses</h2>
+                <div className="address-input">
+                    <label>Province:</label>
+                    <input type="text" value={province} onChange={(e) => setProvince(e.target.value)} />
 
-            <label>Province:</label>
-            <input type="text" value={province} onChange={(e) => setProvince(e.target.value)} />
+                    <label>Remainder:</label>
+                    <input type="text" value={remainder} onChange={(e) => setRemainder(e.target.value)} />
+                </div>
+                <div className="add-address">
+                    <button onClick={addAddress}>Add Address</button>
+                </div>
 
-            <label>Remainder:</label>
-            <input type="text" value={remainder} onChange={(e) => setRemainder(e.target.value)} />
-
-            <button onClick={addAddress}>Add Address</button>
-
-            <h3>Saved Addresses</h3>
-            <ul>
-                {addresses.map((address, index) => (
-                    <li key={index}>
-                        <strong>{address.Province}</strong>: {address.Remainder}
-                        <button onClick={() => deleteAddress(address.Province)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+                <h3>Saved Addresses</h3>
+                <ul>
+                    {addresses.map((address, index) => (
+                        <li key={index}>
+                            <strong>{address.Province}</strong>: {address.Remainder}
+                            <button onClick={() => deleteAddress(address.Province)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            
         </div>
     );
 };

@@ -36,24 +36,27 @@ const CartStateList = () => {
     }, [customerId]);
 
     return (
-        <div>
+        <div className="cart">
             <Navbar/>
-            <h3>Shopping Cart Status</h3>
-            {loading ? (
-                <p>Loading...</p>
-            ) : carts.length > 0 ? (
-                <ul>
-                    {carts.map((cart, index) => (
-                        <li key={index}>
-                            <strong>Cart #{cart.CNumber}</strong>: {cart.Cstatus}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No carts found</p>
-            )}
-            <Last5Shopping customerId={customerId} />
-            <ShoppingHistory />
+            <div className="cart-container">
+                <h3>Shopping Cart Status</h3>
+                {loading ? (
+                    <p className="error">Loading...</p>
+                ) : carts.length > 0 ? (
+                    <ul className="cart-ul">
+                        {carts.map((cart, index) => (
+                            <li className="cart-li" key={index}>
+                                <strong>Cart #{cart.CNumber}</strong>: {cart.Cstatus}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No carts found</p>
+                )}
+                <Last5Shopping customerId={customerId} />
+                <ShoppingHistory />
+            </div>
+
         </div>
     );
 };

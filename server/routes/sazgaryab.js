@@ -103,9 +103,9 @@ router.get("/:userId/:product", async (req, res) => {
         }
 
         
-        const commonIds = allsazgarP.reduce((acc, list) => {
-            return acc.length === 0 ? list : acc.filter(id => list.includes(id));
-        }, []);
+        const commonIds = allsazgarP.length > 0
+        ? allsazgarP.reduce((acc, list) => acc.filter(id => list.includes(id)))
+        : [];
         
         let common = [];
         if (commonIds.length > 0) {
@@ -127,5 +127,18 @@ router.get("/:userId/:product", async (req, res) => {
         res.status(500).json({ error: "Internal server error", details: error.message });
     }
 });
+
+
+router.get("/all-products", async (req, res) => {
+    try {
+        const query = "SELECT ID, Brand, Model, Category FROM PRODUCT";
+        const [products] = await db.query(query);
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching products", details: error.message });
+    }
+});
+
+
 
 module.exports = router;

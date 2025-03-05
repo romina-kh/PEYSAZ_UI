@@ -1,0 +1,91 @@
+
+
+.home h1 {
+    padding-top: 20px;
+    margin-bottom: 40px;
+    color:#c5c6c7;
+}
+
+.home {
+    min-height: 100vh;
+    background-color:  #12151d;
+}
+
+.profile-info button {
+    background-color:#45a29e;
+    color: #1f2833;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+}
+
+.home button:hover {
+    background-color:#1f2833;
+    color: #45a29e;
+    transition: background-color 0.3s;
+}
+
+.home input {
+    background-color: #1f2833;
+    color: #ffffff;
+    border: 1px solid #45a29e;
+    padding: 10px;
+    height: 20px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    width: calc(100% - 22px);
+}
+
+.home input:focus{
+    border-color: #66fcf1;
+    outline: none;
+    box-shadow: 0 0 8px 1px #66fcf1;
+  }
+.profile{
+    margin-top: 70px;
+    justify-items: center;
+}
+.profile-info {
+    border: 1px solid #45a29e;
+    box-shadow: 0 0 20px 10px #45a29e;
+    color:#12151d;
+    text-align: left;
+    background: #c5c6c7;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.vip-badge {
+    background:rgb(255, 102, 0);
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.home h4{
+    color:#185653;
+}
+.not-logged-in{
+    justify-items: center;
+}
+.not-logged-in h2{
+    color: #66fcf1;
+}
+.not-logged-in button{
+    background-color:#45a29e;
+    color: #1f2833;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    display: block;
+    width: 100px;
+}

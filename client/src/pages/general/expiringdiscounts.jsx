@@ -27,9 +27,10 @@ const ExpiringDiscounts = () => {
     }, [userId]);
 
     return (
-        <div>
+        <div className="expiring">
             <Navbar/>
-            <h3>Expiring Discount Codes</h3>
+            <div className="expiring-container">
+            <h2>Expiring Discount Codes</h2>
             {discounts.length === 0 ? (
                 <p>No discounts expiring soon.</p>
             ) : (
@@ -42,6 +43,8 @@ const ExpiringDiscounts = () => {
                     ))}
                 </ul>
             )}
+            </div>
+            
         </div>
     );
 };

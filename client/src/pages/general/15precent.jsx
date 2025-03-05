@@ -34,10 +34,10 @@ const ShoppingHistory = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div>
+        <div className="shopping-history">
             <h2>Last Month's Shopping Transactions</h2>
             {history?.length === null  ? (
-                <p>No successful transactions found in the last month.</p>) : (
+                <p className="error">No successful transactions found in the last month.</p>) : (
                 <div>
                     <ul>
                         {history.map((cart, index) => (
