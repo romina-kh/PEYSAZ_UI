@@ -28,7 +28,7 @@ const Last5Shopping = ({ customerId }) => {
             <div className="shopping-container">
                 <h3>Last 5 Shopping Transactions</h3>
                 {loading ? (
-                    <p>Loading...</p>
+                    <p className="error">Loading...</p>
                 ) : transactions.length > 0 ? (
                     <ul className="shopping-ul">
                         {transactions.map((transaction, index) => (
@@ -51,13 +51,13 @@ const Last5Shopping = ({ customerId }) => {
                                         ))}
                                     </ul>
                                 ) : (
-                                    <p>No products found for this transaction</p>
+                                    <p className="error">No products found for this transaction</p>
                                 )}
                             </li>
                         ))}
                     </ul>
                 ) : (
-                    <p>No transactions found</p>
+                    <p className="error">No transactions found</p>
                 )}
             </div>
             

@@ -8,22 +8,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
-    background-color : #1f2833 ;
+    
    /* display: none;*/
 }
 
 .nav-container
 {
+    height: 70px;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 20px;
+    background-color : #1f2833 ;
 }
 
 .nav-links
 {
     display: flex;
     gap: 20px;
+}
+.nav-container-2{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: right;
 }
 
 .nav-item

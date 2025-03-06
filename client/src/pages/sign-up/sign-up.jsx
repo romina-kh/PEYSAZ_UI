@@ -1,11 +1,11 @@
 import {useForm} from 'react-hook-form';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup' // validation
+import {yupResolver} from '@hookform/resolvers/yup' 
 import {useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
 
-    const navigate = useNavigate(); // go mikone
+    const navigate = useNavigate(); 
 
     const schema = yup.object().shape({
         First_name: yup.string().required("First Name is Required!"),
@@ -13,8 +13,6 @@ const SignUp = () => {
         Phone_number:yup.number("Phone Number Must be a Number").required("Phone Number is Required!").typeError("Phone Number is Required!"),
     });
 
-    // register :link  
-    // resolver link yup to form -- yup check validation
     const {register, handleSubmit, formState:{errors}} = useForm({resolver: yupResolver(schema)}); 
     
     const onSubmit = async (data) => {
@@ -30,7 +28,7 @@ const SignUp = () => {
             const result = await res.json();
     
             if (res.ok) {
-                localStorage.setItem("costumer", JSON.stringify(result.costumer)); // make an item named costumer and put data in it
+                localStorage.setItem("costumer", JSON.stringify(result.costumer)); 
                 navigate("/");
             } else {
                 console.error(result.message);

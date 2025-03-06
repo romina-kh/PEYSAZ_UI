@@ -51,7 +51,6 @@ const Home = () => {
                     <h1>WELCOME TO PEYSAZ</h1>
                     <div className="profile-info">
                         <h2>Profile:</h2>
-                        <h3>ID: {costumer.ID}</h3>
                         <h3>First Name: {costumer.First_name}</h3>
                         <h3>Last Name: {costumer.Last_name}</h3>
                         <h3>Phone Number: {costumer.Phone_number}</h3>
@@ -81,6 +80,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="not-logged-in">
+                    <Navbar />
                 <div className="image-container">
                     <img className="home-pic" src={picture} alt="Home" />
                     <div className="buttons">

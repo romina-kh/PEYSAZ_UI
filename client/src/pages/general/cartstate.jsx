@@ -51,7 +51,7 @@ const CartStateList = () => {
                         ))}
                     </ul>
                 ) : (
-                    <p>No carts found</p>
+                    <p className="error">No carts found</p>
                 )}
                 <Last5Shopping customerId={customerId} />
                 <ShoppingHistory />

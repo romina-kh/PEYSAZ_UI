@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-// 🔹 Function to generate a unique referral code
-const generateUniqueReferralCode = async () => {
+
+const generate_rcode = async () => {
     let isUnique = false;
     let referralCode;
 
@@ -24,7 +24,7 @@ const createUser = async (userData) => {
 
     try {
         
-        const referralCode = await generateUniqueReferralCode();
+        const referralCode = await generate_rcode();
 
       
         const [result] = await db.query(
@@ -97,19 +97,22 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     const userId = req.params.id;
-    
 
     try {
+    
+        await db.query("DELETE FROM private_code WHERE DID = ?", [userId]);
+
+        
         const [result] = await db.query("DELETE FROM COSTUMER WHERE ID = ?", [userId]);
-        console.log(2);
+
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: "User not found" });
         }
 
         res.json({ message: "Account deleted successfully" });
     } catch (err) {
+        console.error("Error deleting user:", err);
         res.status(500).json({ message: "Database error" });
-        console.log(err)
     }
 });
 
