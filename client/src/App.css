@@ -64,7 +64,7 @@
   box-shadow: 0 0 20px 10px #45a29e;
   padding: 30px;
   color:#12151d;
-  background: #c5c6c7;
+  background: rgba(190, 232, 234, 0.85);
   display: grid;
   text-align: left;
   grid-template-columns: repeat(3, auto);
