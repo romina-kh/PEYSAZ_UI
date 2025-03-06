@@ -2,6 +2,50 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
+// 🔹 Function to generate a unique referral code
+const generateUniqueReferralCode = async () => {
+    let isUnique = false;
+    let referralCode;
+
+    while (!isUnique) {
+        referralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const [existing] = await db.query("SELECT 1 FROM COSTUMER WHERE Referral_code = ?", [referralCode]);
+
+
+        if (existing.length === 0) {
+            isUnique = true;
+        }
+    }
+    return referralCode;
+};
+
+const createUser = async (userData) => {
+    const { Phone_number, First_name, Last_name } = userData;
+
+    try {
+        
+        const referralCode = await generateUniqueReferralCode();
+
+      
+        const [result] = await db.query(
+            "INSERT INTO COSTUMER (Phone_number, First_name, Last_name, Referral_code) VALUES (?, ?, ?, ?)",
+            [Phone_number, First_name, Last_name, referralCode]
+        );
+
+        if (result.affectedRows === 0) {
+            throw new Error("User creation failed");
+        }
+
+        const newUserID = result.insertId;
+        const [newUser] = await db.query("SELECT * FROM COSTUMER WHERE ID = ?", [newUserID]);
+
+        return newUser[0];
+    } catch (err) {
+        throw err;
+    }
+};
+
+
 const getUsers = async () => {
     try {
         const [results] = await db.query("SELECT * FROM COSTUMER");
@@ -10,25 +54,6 @@ const getUsers = async () => {
         throw err;
     }
 };
-
-const createUser = async (userData) => {
-    const { Phone_number, First_name, Last_name, Referral_code } = userData;
-    
-    try {
-        const [result] = await db.query(
-            "INSERT INTO COSTUMER (Phone_number, First_name, Last_name, Referral_code) VALUES (?, ?, ?, ?)",
-            [Phone_number, First_name, Last_name, Referral_code ]
-        );
-  
-        if (result.affectedRows === 0) {
-            throw new Error("User creation failed");
-        }
-        const [newUser] = await db.query("SELECT * FROM COSTUMER WHERE ID = LAST_INSERT_ID()");
-        return newUser[0]; 
-    } catch (err) {
-        throw err;
-    }
-  };
 
 
 router.get("/", async (req, res) => {
@@ -50,7 +75,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-
 router.put("/:id", async (req, res) => {
     const userId = req.params.id;
     const { First_name, Last_name, Phone_number } = req.body;
@@ -71,13 +95,13 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-
 router.delete("/:id", async (req, res) => {
     const userId = req.params.id;
+    
 
     try {
         const [result] = await db.query("DELETE FROM COSTUMER WHERE ID = ?", [userId]);
-
+        console.log(2);
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -85,9 +109,9 @@ router.delete("/:id", async (req, res) => {
         res.json({ message: "Account deleted successfully" });
     } catch (err) {
         res.status(500).json({ message: "Database error" });
+        console.log(err)
     }
 });
-
 
 router.get("/profile/:id", async (req, res) => {
     const userId = req.params.id;
@@ -103,7 +127,6 @@ router.get("/profile/:id", async (req, res) => {
         }
 
         const user = userResult[0];
-
         const [vipResult] = await db.query(
             `SELECT Subscription_expiration_time,
                     TIMESTAMPDIFF(DAY, NOW(), Subscription_expiration_time) AS days_left,

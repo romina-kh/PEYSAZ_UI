@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ReferralCount from "../general/referral";
 import DiscountCounter from "../components/discount-counter";
 import Navbar from "../navbar/navbar";
-import picture from "../../assets/1.png"
+import picture from "../../assets/1.png";
+import profilepic from "../../assets/5.png";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);
@@ -45,9 +46,9 @@ const Home = () => {
         <div className="home">
             {costumer ? (
                 <div className="profile">
+                    <img className="home-pic" src={profilepic} alt="profile" />
                     <Navbar />
                     <h1>WELCOME TO PEYSAZ</h1>
-
                     <div className="profile-info">
                         <h2>Profile:</h2>
                         <h3>ID: {costumer.ID}</h3>
