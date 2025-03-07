@@ -15,4 +15,6 @@ To run the project, you need to split your terminal into two separate sessions:
     npm run dev
 2.  cd server
     npm run dev
+
+
 Once both the client and server are running, open your web browser (preferably Google Chrome) and follow the URL.
