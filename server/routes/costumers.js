@@ -19,6 +19,8 @@ const generate_rcode = async () => {
     return referralCode;
 };
 
+// ===========================================================================================
+
 const createUser = async (userData) => {
     const { Phone_number, First_name, Last_name } = userData;
 
@@ -45,6 +47,7 @@ const createUser = async (userData) => {
     }
 };
 
+// ===========================================================================================
 
 const getUsers = async () => {
     try {
@@ -55,6 +58,7 @@ const getUsers = async () => {
     }
 };
 
+// ===========================================================================================
 
 router.get("/", async (req, res) => {
     try {
@@ -65,6 +69,8 @@ router.get("/", async (req, res) => {
     }
 });
 
+// ===========================================================================================
+
 router.post("/", async (req, res) => {
     try {
         const newUser = await createUser(req.body);
@@ -74,6 +80,8 @@ router.post("/", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// ===========================================================================================
 
 router.put("/:id", async (req, res) => {
     const userId = req.params.id;
@@ -95,6 +103,8 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+// ===========================================================================================
+
 router.delete("/:id", async (req, res) => {
     const userId = req.params.id;
 
@@ -115,6 +125,8 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ message: "Database error" });
     }
 });
+
+// ===========================================================================================
 
 router.get("/profile/:id", async (req, res) => {
     const userId = req.params.id;

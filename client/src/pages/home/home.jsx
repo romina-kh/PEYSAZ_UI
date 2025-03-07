@@ -4,7 +4,7 @@ import ReferralCount from "../general/referral";
 import DiscountCounter from "../components/discount-counter";
 import Navbar from "../navbar/navbar";
 import picture from "../../assets/1.png";
-import profilepic from "../../assets/5.png";
+import profilepic from "../../assets/2.png";
 
 const Home = () => {
     const [costumer, setCostumer] = useState(null);

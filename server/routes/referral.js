@@ -3,8 +3,6 @@ const router = express.Router();
 const db = require("../config/db");
 
 
-
-
 router.get("/discounts/:id", async (req, res) => {
     const userId = req.params.id;
 
@@ -27,7 +25,7 @@ router.get("/discounts/:id", async (req, res) => {
     }
 });
 
-
+// ===========================================================================================
 
 router.get("/:referralCode", async (req, res) => {
     const { referralCode } = req.params;

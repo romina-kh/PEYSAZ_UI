@@ -12,6 +12,8 @@ const isVIPUser = async (userId) => {
     }
 };
 
+// ===========================================================================================
+
 const getProductId = async (category, name) => {
     if (!category || !name) {
         return null; 
@@ -30,6 +32,8 @@ const getProductId = async (category, name) => {
         throw error;
     }
 };
+
+// ===========================================================================================
 
 const findsazgarP = async (productId, isVIP) => {
     const query = 
@@ -68,6 +72,8 @@ const findsazgarP = async (productId, isVIP) => {
         throw error;
     }
 };
+
+// ===========================================================================================
 
 router.get("/:userId/:product", async (req, res) => {
     try {
@@ -128,6 +134,7 @@ router.get("/:userId/:product", async (req, res) => {
     }
 });
 
+// ===========================================================================================
 
 router.get("/all-products", async (req, res) => {
     try {

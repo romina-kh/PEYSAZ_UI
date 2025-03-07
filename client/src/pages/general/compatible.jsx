@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../navbar/navbar";
 
 const Sazgaryab = () => {
-  const [productInput, setProductInput] = useState("");
+ 
   const [productSazgar, setProductSazgar] = useState({});
   const [common, setCommon] = useState([]);
   const [error, setError] = useState("");
@@ -10,6 +10,7 @@ const Sazgaryab = () => {
   const [isVIP, setIsVIP] = useState("");
   const [allProducts, setAllProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [productInput, setProductInput] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {

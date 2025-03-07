@@ -11,7 +11,7 @@ router.post("/:ID", async (req, res) => {
 
     try {
         const sql = "INSERT INTO ADDRESS (AID, Province, Remainder) VALUES (?, ?, ?)";
-        await db.query(sql, [userId, Province, Remainder]); // Fix: Added await
+        await db.query(sql, [userId, Province, Remainder]); 
 
         res.status(201).json({ message: "Address added successfully!" });
     } catch (error) {
@@ -19,6 +19,8 @@ router.post("/:ID", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+// ===========================================================================================
 
 router.get("/:ID", async (req, res) => {
     const userId = req.params.ID
@@ -33,6 +35,8 @@ router.get("/:ID", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+// ===========================================================================================
 
 router.delete("/:ID/:province", async (req, res) => {
     const { ID, province } = req.params
