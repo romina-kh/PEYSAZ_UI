@@ -2,12 +2,11 @@ const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
 
-
 router.get("/discounts/:id", async (req, res) => {
     const userId = req.params.id;
 
     try {
-        const [result] = await db.query(
+        const [discountResult] = await db.query(
             `WITH RECURSIVE Referrals AS (
                 SELECT Referee FROM REFERS WHERE Referrer = ?
                 UNION ALL
@@ -18,14 +17,24 @@ router.get("/discounts/:id", async (req, res) => {
             [userId]
         );
 
-        res.json({ userId, discountCount: result[0].discountCount });
+        const [introduceResult] = await db.query(
+            `SELECT CASE 
+                WHEN EXISTS (SELECT 1 FROM REFERS WHERE Referee = ?) THEN 1
+                ELSE 0 
+            END AS being_interduce;`,
+            [userId]
+        );
+
+        const finalDiscountCount = discountResult[0].discountCount + introduceResult[0].being_interduce;
+
+        res.json({ userId, discountCount: finalDiscountCount });
     } catch (error) {
         console.error("Error fetching discount codes:", error);
         res.status(500).json({ message: "Server error" });
     }
 });
 
-// ===========================================================================================
+//========================================================================================================
 
 router.get("/:referralCode", async (req, res) => {
     const { referralCode } = req.params;
